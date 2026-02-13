@@ -1,0 +1,491 @@
+:root {
+    --bg-color: #0d0d0d;
+    --sidebar-bg: #141414;
+    --border-color: #2a2a2a;
+    --accent-color: #3b82f6;
+    /* Blue for the tool itself */
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --input-bg: #1f1f1f;
+    --danger-color: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    height: 100vh;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+/* Import Reference Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700&family=Luxurious+Roman&display=swap');
+
+.app-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* --- Preview Specific Styles (Mimicking Reference Site) --- */
+.preview-box .thead {
+    background: #4d668a;
+    /* Fallback */
+    color: #ffffff;
+    padding: 10px;
+    border: 1px solid #000;
+}
+
+.preview-box .packbanner {
+    background-position: 50% 50% !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    padding: 30px;
+    text-align: center;
+    text-shadow: 0px 0px 7px #000;
+    font-family: 'Dosis', sans-serif;
+    border: 1px solid #1a1a1a;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.preview-box .flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.preview-box .fill {
+    width: 100%;
+}
+
+.preview-box .land {
+    list-style: none;
+    margin-bottom: 5px;
+}
+
+.preview-box .land:before {
+    content: "🐾 ";
+}
+
+.preview-box .content-wrapper {
+    font-family: 'Luxurious Roman', cursive;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 1px;
+    color: #cecece;
+    /* Lighter text for dark mode preview */
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+}
+
+.preview-box h1,
+.preview-box h2,
+.preview-box h3 {
+    font-family: 'Dosis', sans-serif;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.preview-box summary.thead {
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 2px;
+    list-style: none;
+    text-align: center;
+    background-image: url('https://i.imgur.com/krZJzYo.png');
+    /* Default snow pattern */
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.preview-box details[open] summary.thead {
+    margin-bottom: 10px;
+}
+
+
+/* --- Editor Panel (Left) --- */
+.editor-panel {
+    width: 400px;
+    min-width: 400px;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: width 0.3s ease, min-width 0.3s ease;
+    overflow: hidden;
+}
+
+.editor-panel.collapsed {
+    width: 50px;
+    min-width: 50px;
+}
+
+.editor-panel.collapsed .header-content,
+.editor-panel.collapsed #pack-form {
+    display: none;
+}
+
+.editor-panel.collapsed .editor-header {
+    padding: 1rem 0.5rem;
+    justify-content: center;
+}
+
+.editor-panel.collapsed #toggle-sidebar-btn {
+    transform: rotate(180deg);
+    margin-right: 0;
+}
+
+.editor-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.toggle-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+    background: var(--input-bg);
+    color: var(--text-primary);
+}
+
+.sidebar-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-xs {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-xs:hover {
+    background: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+}
+
+.editor-header h1 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.editor-header p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+#pack-form {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.form-section {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    overflow: hidden;
+    background: #1a1a1a;
+}
+
+.form-section summary {
+    list-style: none;
+    padding: 10px 15px;
+    background: #252525;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.2s;
+}
+
+.form-section summary:hover {
+    background: #2a2a2a;
+    color: var(--text-primary);
+}
+
+.form-section summary::-webkit-details-marker {
+    display: none;
+}
+
+.form-section summary::after {
+    content: '▼';
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+}
+
+.form-section[open] summary::after {
+    transform: rotate(180deg);
+}
+
+.form-section[open] summary {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-content {
+    padding: 15px;
+    background: var(--sidebar-bg);
+}
+
+/* Remove old h2 styles if they cause conflicts, or repurpose them */
+/* .form-section h2 { ... } replaced by summary styling */
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.6rem 0.8rem;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.color-grid {
+    display: flex;
+    gap: 1rem;
+}
+
+.color-grid .form-group {
+    flex: 1;
+}
+
+.color-grid input[type="color"] {
+    width: 100%;
+    height: 40px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* --- Preview Panel (Right) --- */
+.preview-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--bg-color);
+}
+
+.preview-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-color);
+}
+
+.preview-header h2 {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.preview-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+    background-color: var(--bg-color);
+    /* Plain background instead of dots */
+}
+
+.preview-box {
+    width: 100%;
+    margin: 0 auto;
+    background: transparent;
+    /* The content inside will define the look, simulating the forum post */
+}
+
+.code-output-section {
+    height: 150px;
+    border-top: 1px solid var(--border-color);
+    padding: 1rem;
+    background-color: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    transition: height 0.3s ease;
+    overflow: hidden;
+}
+
+.code-output-section.collapsed {
+    height: 50px;
+    padding-bottom: 0;
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.toggle-btn-small {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: transform 0.3s;
+}
+
+.code-output-section.collapsed .toggle-btn-small {
+    transform: rotate(180deg);
+}
+
+.code-output-section label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 0;
+}
+
+#code-output {
+    flex: 1;
+    background-color: #000;
+    color: #0f0;
+    font-family: 'Consolas', monospace;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    resize: none;
+}
+
+/* --- Buttons --- */
+.btn {
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.btn.primary {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn.primary:hover {
+    filter: brightness(1.1);
+}
+
+.btn.secondary {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.btn.secondary:hover {
+    background-color: var(--border-color);
+}
+
+/* Member Items */
+.member-item {
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.member-header {
+    background: transparent;
+    border: none;
+    border-bottom: 2px dashed var(--border-color);
+    color: var(--text-secondary);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+
+.remove-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: #2a1f1f;
+    border: 1px solid #442222;
+    color: var(--danger-color);
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.remove-btn:hover {
+    background-color: var(--danger-color);
+    color: white;
+    border-color: var(--danger-color);
+}

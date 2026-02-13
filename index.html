@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Pack Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Cinzel:wght@400;700&family=Dancing+Script:wght@400;700&family=Fira+Code&family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Oswald:wght@400;700&family=Pacifico&family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&family=Satisfy&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- LEFT PANEL: EDITOR -->
+        <aside class="editor-panel">
+            <header class="editor-header">
+                <button id="toggle-sidebar-btn" class="toggle-btn" title="Minimize Sidebar">◀</button>
+                <div class="header-content">
+                    <h1>Pack Builder</h1>
+                    <p>Create your custom pack page. <a href="#" id="fill-example-btn"
+                            style="color: var(--accent-color); text-decoration: none; font-size: 0.8em;">(Fill
+                            Example)</a>
+                    </p>
+                    <div class="sidebar-actions" style="margin-top: 10px;">
+                        <button id="expand-all-btn" class="btn-xs" title="Expand All">Expand All</button>
+                        <button id="collapse-all-btn" class="btn-xs" title="Collapse All">Collapse All</button>
+                    </div>
+                </div>
+            </header>
+
+            <form id="pack-form">
+                <!-- 1. HEADER INFO -->
+                <!-- 1. HEADER INFO -->
+                <details class="form-section" open>
+                    <summary>Header Info</summary>
+                    <div class="section-content">
+                        <div class="form-group">
+                            <label for="packName">Pack Name</label>
+                            <input type="text" id="packName" placeholder="e.g. Armada">
+                        </div>
+                        <div class="form-group">
+                            <label for="packSlogan">Slogan / Motto</label>
+                            <input type="text" id="packSlogan" placeholder="e.g. The mountains are our fortress...">
+                        </div>
+                        <div class="form-group">
+                            <label for="packBanner">Banner Image URL</label>
+                            <input type="text" id="packBanner" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label for="packQuote">Supplemental Quote</label>
+                            <input type="text" id="packQuote" placeholder="Secondary thematic quote...">
+                        </div>
+                    </div>
+                </details>
+
+                <!-- 2. STATS BUILDER (Dynamic) -->
+                <!-- 2. STATS BUILDER (Dynamic) -->
+                <details class="form-section" open>
+                    <summary>Stats Bar</summary>
+                    <div class="section-content">
+                        <div class="helper-text">Add stats like Alignment, Territories, Leaders. Set width to control
+                            items
+                            per row.</div>
+                        <div id="stats-container">
+                            <!-- Stats Editor Items will be injected here -->
+                        </div>
+                        <button type="button" id="add-stat-btn" class="action-btn">+ Add Stat</button>
+                        <button type="button" id="reset-stats-btn" class="secondary-btn" style="margin-top: 5px;">Reset
+                            Default Stats</button>
+                    </div>
+                </details>
+
+                <!-- 3. LORE CONTENT -->
+                <!-- 3. LORE CONTENT -->
+                <details class="form-section" open>
+                    <summary>Lore & Info</summary>
+                    <div class="section-content">
+                        <div class="form-group">
+                            <label for="packDesc">Description & Culture</label>
+                            <textarea id="packDesc" rows="6" placeholder="Describe your pack..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="packHistory">History</label>
+                            <textarea id="packHistory" rows="6" placeholder="Pack history..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="packRules">Laws & Rules</label>
+                            <textarea id="packRules" rows="6" placeholder="Rules..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="packTerritoryInfo">Territory Info</label>
+                            <textarea id="packTerritoryInfo" rows="4"
+                                placeholder="Description of the land..."></textarea>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- 4. SIDEBAR (Right Column) -->
+                <!-- 4. SIDEBAR (Right Column) -->
+                <details class="form-section" open>
+                    <summary>Sidebar</summary>
+                    <div class="section-content">
+                        <div class="helper-text">Add info boxes for the right-hand sidebar.</div>
+                        <div id="sidebar-container"></div>
+                        <button type="button" id="add-sidebar-btn" class="action-btn">+ Add Sidebar Item</button>
+                        <button type="button" id="reset-sidebar-btn" class="secondary-btn"
+                            style="margin-top: 5px;">Reset
+                            Sidebar</button>
+                    </div>
+                </details>
+
+                <!-- 5. EXTRA SECTIONS (Main Column) -->
+                <!-- 5. EXTRA SECTIONS (Main Column) -->
+                <details class="form-section" open>
+                    <summary>Extra Sections</summary>
+                    <div class="section-content">
+                        <div class="helper-text">Add custom sections to the main body (left column).</div>
+                        <div id="extra-sections-container"></div>
+                        <button type="button" id="add-extra-btn" class="action-btn">+ Add Extra Section</button>
+                        <button type="button" id="reset-extra-btn" class="secondary-btn" style="margin-top: 5px;">Reset
+                            Extras</button>
+                    </div>
+                </details>
+
+                <!-- 5. TYPOGRAPHY -->
+                <!-- 5. TYPOGRAPHY -->
+                <details class="form-section" open>
+                    <summary>Typography</summary>
+                    <div class="section-content">
+                        <div class="helper-text">Customize fonts and text sizes.</div>
+
+                        <!-- Fonts -->
+                        <div class="form-group">
+                            <label for="fontHeadings">Headings Font</label>
+                            <select id="fontHeadings">
+                                <option value="'Dosis', sans-serif">Dosis (Default)</option>
+                                <option value="'Roboto', sans-serif">Roboto</option>
+                                <option value="'Open Sans', sans-serif">Open Sans</option>
+                                <option value="'Montserrat', sans-serif">Montserrat</option>
+                                <option value="'Lato', sans-serif">Lato</option>
+                                <option value="'Oswald', sans-serif">Oswald</option>
+                                <option value="'Anton', sans-serif">Anton</option>
+                                <option value="'Merriweather', serif">Merriweather</option>
+                                <option value="'Playfair Display', serif">Playfair Display</option>
+                                <option value="'Cinzel', serif">Cinzel</option>
+                                <option value="'Dancing Script', cursive">Dancing Script</option>
+                                <option value="'Pacifico', cursive">Pacifico</option>
+                                <option value="'Satisfy', cursive">Satisfy</option>
+                                <option value="'Bangers', cursive">Bangers</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fontBody">Body Font</label>
+                            <select id="fontBody">
+                                <option value="'Luxurious Roman', cursive">Luxurious Roman (Default)</option>
+                                <option value="'Roboto', sans-serif">Roboto</option>
+                                <option value="'Open Sans', sans-serif">Open Sans</option>
+                                <option value="'Montserrat', sans-serif">Montserrat</option>
+                                <option value="'Lato', sans-serif">Lato</option>
+                                <option value="'Merriweather', serif">Merriweather</option>
+                                <option value="'Playfair Display', serif">Playfair Display</option>
+                                <option value="'Fira Code', monospace">Fira Code</option>
+                            </select>
+                        </div>
+
+                        <!-- Sizes -->
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="sizeBase">Base Font Size (px)</label>
+                                <input type="number" id="sizeBase" value="15" min="10" max="24">
+                            </div>
+                            <div class="form-group">
+                                <label for="sizeHeadings">Heading Scale</label>
+                                <input type="number" id="sizeHeadings" value="1.0" step="0.1" min="0.5" max="3.0">
+                                <div class="helper-text" style="font-size: 0.8em; margin-top: 2px;">Multiplier for H1,
+                                    H2,
+                                    H3</div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- 6. COLORS & STYLING -->
+                <!-- 6. COLORS & STYLING -->
+                <details class="form-section" open>
+                    <summary>Styling</summary>
+                    <div class="section-content">
+
+                        <!-- Header -->
+                        <div class="form-group">
+                            <label for="headerBgImage">Header Background Image</label>
+                            <input type="text" id="headerBgImage" placeholder="URL for the top banner">
+                            <div class="helper-text" style="font-size: 0.8em; color: #666; margin-top: 2px;">Image will
+                                cover the entire header area.</div>
+                        </div>
+
+                        <!-- Inner Content -->
+                        <div class="form-group"
+                            style="padding: 10px; border: 1px solid #333; border-radius: 5px; background: #1a1a1a;">
+                            <h3 style="font-size: 0.9em; color: #aaa; margin-bottom: 10px; text-transform: uppercase;">
+                                Inner
+                                Content Area</h3>
+
+                            <div class="form-group">
+                                <label for="innerBgImage">Background Image (Optional)</label>
+                                <input type="text" id="innerBgImage"
+                                    placeholder="URL for the main content background image">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="textureOverlay">Texture Overlay</label>
+                                <select id="textureOverlay">
+                                    <option value="">None</option>
+                                    <option value="https://www.transparenttextures.com/patterns/dark-matter.png"
+                                        selected>
+                                        Dark Matter (Default)</option>
+                                    <option value="https://www.transparenttextures.com/patterns/asfalt-light.png">
+                                        Asphalt
+                                    </option>
+                                    <option value="https://www.transparenttextures.com/patterns/black-scales.png">Black
+                                        Scales</option>
+                                    <option value="https://www.transparenttextures.com/patterns/carbon-fibre.png">Carbon
+                                        Fibre</option>
+                                    <option value="https://www.transparenttextures.com/patterns/diagmonds-light.png">
+                                        Diamonds</option>
+                                    <option value="https://www.transparenttextures.com/patterns/wood-pattern.png">Wood
+                                        Pattern</option>
+                                </select>
+                            </div>
+
+                            <div class="color-grid">
+                                <div class="form-group">
+                                    <label for="bgColor">Base Color</label>
+                                    <input type="color" id="bgColor" value="#000000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="textColor">Text Color</label>
+                                    <input type="color" id="textColor" value="#aaaaaa">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="color-grid" style="margin-top: 10px;">
+                            <div class="form-group">
+                                <label for="accentColor">Main Accent</label>
+                                <input type="color" id="accentColor" value="#8b0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="linkColor">Link Color</label>
+                                <input type="color" id="linkColor" value="#b8eeff">
+                            </div>
+                        </div>
+
+                        <!-- Lore & Info Styling -->
+                        <div class="form-group"
+                            style="padding: 10px; border: 1px solid #333; border-radius: 5px; background: #1a1a1a; margin-top: 10px;">
+                            <h3 style="font-size: 0.9em; color: #aaa; margin-bottom: 10px; text-transform: uppercase;">
+                                Lore & Info Styling</h3>
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="checkbox" id="loreBgEnabled" checked> Enable Background
+                                </label>
+                            </div>
+                            <div class="color-grid">
+                                <div class="form-group">
+                                    <label for="loreBgColor">Color</label>
+                                    <input type="color" id="loreBgColor" value="#000000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="loreBgOpacity">Opacity</label>
+                                    <input type="range" id="loreBgOpacity" min="0" max="1" step="0.1" value="0.3">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar Styling -->
+                        <div class="form-group"
+                            style="padding: 10px; border: 1px solid #333; border-radius: 5px; background: #1a1a1a; margin-top: 10px;">
+                            <h3 style="font-size: 0.9em; color: #aaa; margin-bottom: 10px; text-transform: uppercase;">
+                                Sidebar Styling</h3>
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="checkbox" id="sidebarBgEnabled" checked> Enable Background
+                                </label>
+                            </div>
+                            <div class="color-grid">
+                                <div class="form-group">
+                                    <label for="sidebarBgColor">Color</label>
+                                    <input type="color" id="sidebarBgColor" value="#000000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sidebarBgOpacity">Opacity</label>
+                                    <input type="range" id="sidebarBgOpacity" min="0" max="1" step="0.1" value="0.3">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Extra Section Styling -->
+                        <div class="form-group"
+                            style="padding: 10px; border: 1px solid #333; border-radius: 5px; background: #1a1a1a; margin-top: 10px;">
+                            <h3 style="font-size: 0.9em; color: #aaa; margin-bottom: 10px; text-transform: uppercase;">
+                                Extra Section Styling</h3>
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="checkbox" id="extraBgEnabled" checked> Enable Background
+                                </label>
+                            </div>
+                            <div class="color-grid">
+                                <div class="form-group">
+                                    <label for="extraBgColor">Color</label>
+                                    <input type="color" id="extraBgColor" value="#000000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="extraBgOpacity">Opacity</label>
+                                    <input type="range" id="extraBgOpacity" min="0" max="1" step="0.1" value="0.3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- 6. PACK RANKS -->
+                <!-- 6. PACK RANKS -->
+                <details class="form-section" open>
+                    <summary>Pack Ranks</summary>
+                    <div class="section-content">
+                        <div class="input-group">
+                            <div class="helper-text">Customize ranks, their width (items per row), descriptions, and
+                                members.</div>
+
+                            <div id="ranks-container">
+                                <!-- Rank Editor Items will be injected here -->
+                            </div>
+
+                            <button type="button" id="add-rank-btn" class="action-btn">+ Add New Rank</button>
+                            <button type="button" id="load-standard-ranks-btn" class="secondary-btn"
+                                style="margin-top: 10px;">Reset to Standard Ranks</button>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- HIDDEN INPUTS FOR COMPATIBILITY IF NEEDED (Removed as we updated script) -->
+                <!-- We removed packAlignment, packTerritories, packLeaders, packPatrols, packNews, packRelations IDs from HTML -->
+                <!-- because we updated script.js to NOT look for them in updatePreview? WAI T-->
+                <!-- CHECK SCRIPT.JS STEP 149 lines 498-507 -->
+                <!-- Script.js LOOKS for: packAlignment, packTerritories, packLeaders, packPatrols, packNews, packRelations -->
+                <!-- AND .value -->
+                <!-- IF THESE ARE GONE, IT WILL CRASH AGAIN. -->
+
+                <!-- WAIT. The new script generates HTML using 'stats' array and 'sidebar' array. -->
+                <!-- BUT updatePreview still tries to grab values from the OLD inputs to put into the 'data' object. -->
+                <!-- See script.js lines 498-507 in the PREVIOUS step view. -->
+                <!-- I MUST FIX SCRIPT.JS TO STOP LOOKING FOR THESE REMOVED INPUTS. -->
+
+            </form>
+        </aside>
+
+        <!-- RIGHT PANEL: PREVIEW -->
+        <main class="preview-panel">
+            <div class="preview-header">
+                <h2>Live Preview</h2>
+                <div class="actions">
+                    <button id="copy-btn" class="btn primary">Copy Code</button>
+                </div>
+            </div>
+
+            <div class="preview-container">
+                <div id="live-preview" class="preview-box">
+                    <!-- CONSTENT WILL BE INJECTED HERE -->
+                </div>
+            </div>
+
+            <div class="code-output-section collapsed">
+                <div class="code-header">
+                    <label>Generated Code</label>
+                    <button id="toggle-code-btn" class="toggle-btn-small" title="Expand Code">▼</button>
+                </div>
+                <textarea id="code-output" readonly></textarea>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
