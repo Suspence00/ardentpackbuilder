@@ -443,12 +443,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('packBanner').value = 'https://i.ibb.co/NnQkhs8M/image.png';
         document.getElementById('packQuote').value = 'I am the sword in the darkness.';
         document.getElementById('headerBgImage').value = 'https://i.imgur.com/krZJzYo.png'; // Default header BG
+        document.getElementById('rankHeaderBgImage').value = 'https://i.imgur.com/krZJzYo.png'; // Default rank header BG
         // Inner Settings
         document.getElementById('textureOverlay').value = 'https://www.transparenttextures.com/patterns/dark-matter.png';
-        document.getElementById('innerBgImage').value = '';
+        document.getElementById('innerBgImage').value = 'https://i.imgur.com/krZJzYo.png';
         document.getElementById('bgColor').value = '#000000';
         document.getElementById('textColor').value = '#aaaaaa';
         document.getElementById('linkColor').value = '#b8eeff';
+
+        // Opacities
+        document.getElementById('loreBgOpacity').value = 0.7;
+        document.getElementById('sidebarBgOpacity').value = 0.7;
+        document.getElementById('extraBgOpacity').value = 0.7;
 
         // Stats
         stats = [
@@ -632,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return `
         <details style="margin-bottom: 5px; width: ${rank.width}; vertical-align: top; display: inline-block;">
-            <summary class="thead" style="padding: 10px; background-image: url('${data.bgImage || 'https://i.imgur.com/krZJzYo.png'}'); background-size: cover; border: 1px solid #000; color: #fff; text-align: center; font-family: ${hFont}; letter-spacing: 2px; cursor: pointer; font-size: ${12 * scale}px;">${rank.title.toUpperCase()}</summary>
+            <summary class="thead" style="padding: 10px; background-image: url('${data.rankHeaderBgImage || 'https://i.imgur.com/krZJzYo.png'}'); background-size: cover; border: 1px solid #000; color: #fff; text-align: center; font-family: ${hFont}; letter-spacing: 2px; cursor: pointer; font-size: ${12 * scale}px;">${rank.title.toUpperCase()}</summary>
             <div style="background-color: rgba(24, 34, 51, 0.8); padding: 15px; text-align: center; border: 1px solid #000; border-top: none; min-height: 50px;">
                 ${rank.desc ? `<div style="font-size: ${parseInt(data.baseSize) - 4}px; font-style: italic; margin-bottom: 10px; color: #ccc;">${rank.desc}</div>` : ''}
                 ${memberList || '<i style="opacity:0.5; font-size: 12px;">Open</i>'}
@@ -729,6 +735,7 @@ document.addEventListener('DOMContentLoaded', () => {
             textColor: document.getElementById('textColor').value,
             linkColor: document.getElementById('linkColor').value,
             headerBgImage: document.getElementById('headerBgImage').value,
+            rankHeaderBgImage: document.getElementById('rankHeaderBgImage').value,
             innerBgImage: document.getElementById('innerBgImage').value,
             textureOverlay: document.getElementById('textureOverlay').value,
 
